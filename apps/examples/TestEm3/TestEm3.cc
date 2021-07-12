@@ -39,7 +39,8 @@
 //   == Geant4 version Geant4.10.02.ref08
 //   == examples/extended/electromagnetic/TestEm3
 //
-
+#include"B2TrackerSD.hh"
+#include "B2bDetectorConstruction.hh"
 #include "G4Types.hh"
 
 #ifdef G4MULTITHREADED
@@ -123,6 +124,7 @@ int main(int argc,char** argv) {
 
   // set mandatory initialization classes
   DetectorConstruction* detector = new DetectorConstruction();
+  //B2bDetectorConstruction* detector = new B2bDetectorConstruction();
   runManager->SetUserInitialization(detector);
   runManager->SetUserInitialization(new PhysicsList);
 

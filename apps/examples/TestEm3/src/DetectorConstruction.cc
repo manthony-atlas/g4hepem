@@ -33,7 +33,7 @@
 
 #include "DetectorConstruction.hh"
 #include "DetectorMessenger.hh"
-
+#include "B2TrackerSD.hh"
 #include "G4NistManager.hh"
 #include "G4Material.hh"
 #include "G4Box.hh"
@@ -56,7 +56,7 @@
 #include "G4FieldManager.hh"
 
 #include "PrimaryGeneratorAction.hh"
-
+#include "G4SDManager.hh"
 #include <iomanip>
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -486,6 +486,14 @@ void DetectorConstruction::SetCalorSizeYZ(G4double val)
 
 void DetectorConstruction::ConstructSDandField()
 {
+  //Sensitive Detector 
+  // code based on GEANT4 example B2
+  G4String trackerChamberSDname="DummyTracker";
+  B2TrackerSD* aTrackerSD=new B2TrackerSD(trackerChamberSDname,
+					  "TrackerHitsCollection");
+  G4SDManager::GetSDMpointer()->AddNewDetector(aTrackerSD);
+  SetSensitiveDetector(fLogicLayer, aTrackerSD);
+
   if (fMagFieldVector.mag() > 0.0) {
     // Apply a global uniform magnetic field along the Z axis.
     // Notice that only if the magnetic field is not zero, the Geant4
